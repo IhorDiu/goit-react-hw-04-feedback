@@ -13,8 +13,8 @@ export const App = () => {
   const [countTotalFeedback, setCountTotalFeedback] = useState(0);
   const [positivePercentage, setPositivePercentage] = useState(0);
 
-  const addFeedback = e => {
-    switch (e) {
+  const addFeedback = type => {
+    switch (type) {
       case 'Good':
         setGood(prevGood => prevGood + 1);
         break;
@@ -29,24 +29,17 @@ export const App = () => {
     }
   };
 
-
   useEffect(() => {
-    setCountTotalFeedback (() => good + neutral + bad);
-    setPositivePercentage (() => Math.round((good / countTotalFeedback) * 100))
-
-  }, [good, neutral, bad, countTotalFeedback])
-
-  const options = ['Good', 'Neutral', 'Bad'];
+    setCountTotalFeedback(() => good + neutral + bad);
+    setPositivePercentage(() => Math.round((good / countTotalFeedback) * 100));
+  }, [good, neutral, bad, countTotalFeedback]);
 
   return (
     <div className="FeedbackWidget">
       <Title>Feedback Form</Title>
 
       <Section title="Please leave your feedback">
-        <FeedbackOptions
-          options={options}
-          onLeaveFeedback={addFeedback}
-        />
+        <FeedbackOptions onLeaveFeedback={addFeedback} />
       </Section>
 
       <Section title="Statistics">
